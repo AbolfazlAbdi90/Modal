@@ -22,7 +22,7 @@ const onPaid = (amount: number) => {
 
 <template>
   <div class="flex justify-center mt-10">
-    <!-- Wallet Button -->
+   
     <div
       @click="openModal"
       role="button"
@@ -32,7 +32,6 @@ const onPaid = (amount: number) => {
       class="group flex w-fit items-center justify-between gap-3 rounded-xl border px-5 py-3 bg-white shadow-sm cursor-pointer border-gray-300 hover:border-blue-400 hover:bg-blue-50 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 focus-visible:outline-none active:scale-[0.98] transition-all duration-300 ease-in-out"
       aria-label="افزایش اعتبار کیف پول"
     >
-      <!-- Icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="w-6 h-6 text-blue-500 group-hover:text-blue-400 transition-colors duration-300"
@@ -45,7 +44,6 @@ const onPaid = (amount: number) => {
         />
       </svg>
 
-      <!-- Price -->
       <div
         class="flex gap-1 text-sm font-semibold text-gray-700 group-hover:text-blue-700 transition-colors duration-300"
         aria-live="polite"
@@ -53,7 +51,6 @@ const onPaid = (amount: number) => {
         <span>{{ displayAmount }}</span>
       </div>
 
-      <!-- Plus Badge -->
       <div
         class="flex w-6 h-6 items-center justify-center rounded bg-blue-500 text-white text-lg font-bold transition-all duration-300 group-hover:bg-white group-hover:text-blue-500"
         aria-hidden="true"
@@ -62,7 +59,6 @@ const onPaid = (amount: number) => {
       </div>
     </div>
 
-    <!-- Modal -->
     <Modal v-model="showModal" @paid="onPaid"  />
   </div>
 </template>

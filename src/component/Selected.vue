@@ -35,7 +35,7 @@ const belowThousand = (n: number): string => {
   const hundreds = ['', 'صد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد']
 
   let res: string[] = []
-  if  (n >= 100) {
+  if (n >= 100) {
     res.push(hundreds[Math.floor(n / 100)]!)
     n %= 100
   }
@@ -46,7 +46,6 @@ const belowThousand = (n: number): string => {
   if (n > 0) res.push(ones[n]!)
   return res.join(' و ')
 }
-
 
 const numberToWords = (num: number): string => {
   if (num === 0) return 'صفر تومان'
@@ -62,7 +61,6 @@ const numberToWords = (num: number): string => {
   return parts.reverse().join(' و ') + ' تومان'
 }
 
-
 const updateValue = (value: string) => {
   const clean = normalizeNumber(value)
   rawValue.value = clean
@@ -72,7 +70,7 @@ const updateValue = (value: string) => {
     formattedValue.value = ''
     amountInWords.value = ''
     selectedAmount.value = null
-    emit('update:amount', null) 
+    emit('update:amount', null)
     return
   }
 
@@ -115,46 +113,56 @@ const selectPreset = (amount: number) => updateValue(amount.toString())
 </script>
 
 <template>
-  <div class="max-w-md space-y-4">
-    <div class="grid grid-cols-2 gap-3 mr-10 mt-8">
+  <div class= "max-w-82.5 min-h-[170px] ">
+    <div
+      class="grid grid-cols-2 justify-center w-[330px] gap-x-[20px] gap-y-[16px] mr-6  md:mr-[86px] mt-[27px] md:mt-8"
+    >
       <button
         v-for="amount in presetAmounts"
         :key="amount"
         @click="selectPreset(amount)"
-        class="flex items-center justify-between px-4 py-3 transition"
+        class="flex items-center justify-start cursor-pointer transition gap-2"
       >
         <span
-          class="flex h-5 w-5 items-center justify-center rounded-full border-2"
-          :class="selectedAmount === amount ? 'border-blue-500 bg-white-500' : 'border-gray-400'"
+          class="flex size-4 items-center justify-center rounded-full border-2"
+          :class="selectedAmount === amount ? 'border-blue-500  bg-white-500' : 'border-[#CCCDDF]'"
         >
-          <span v-if="selectedAmount === amount" class="h-3 w-3 rounded-full bg-blue-500 " />
+          <span
+            v-if="selectedAmount === amount"
+            class="md:h-2 md:w-2 h-1.5 w-1.5 rounded-full bg-blue-500"
+          />
         </span>
-        <span class="text-gray-800">{{ amount.toLocaleString('fa-IR') }} تومان</span>
+        <span class="text-gray-800 font-medium text-[13px]"
+          >{{ amount.toLocaleString('fa-IR') }} تومان</span
+        >
       </button>
     </div>
 
     <div
-      class="flex items-center mr-10 rounded-lg border px-3 py-2 border-gray-300 hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all duration-200"
+      class="flex mr-6 md:mr-[70px] md:ml-[70px] md:w-[361px] w-[327px] mt-4 md:mt-6 items-center rounded-lg border px-3 border-gray-300 hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all duration-200"
     >
       <input
         type="text"
         inputmode="numeric"
-        class="flex-1 bg-transparent text-right outline-none"
+        aria-label="مبلغ به تومان"
+        maxlength="8"
+        class="flex-1 font-normal text-[14px] text-[#1A2F63] bg-transparent font text-right h-12 outline-none placeholder-gray-400"
         placeholder="حداکثر 8 رقم عددی"
         :value="formattedValue"
         @input="onInput"
         @keydown="onKeyDown"
         @paste="onPaste"
       />
-      <span class="mr-2 text-gray-500">تومان</span>
+      <span class="mr-2 text-[#41507E] font-normal text-[13px]">تومان</span>
     </div>
 
-    <div v-if="errorMessage" class="mr-10 mb-1 font-bold text-sm text-red-500">
-      {{ errorMessage }}
-    </div>
+    <div v-show="errorMessage" class="md:mr-[70px] mr-6 mt-1 mb-1 font-bold text-[12px] text-red-500">
+  {{ errorMessage }}
+</div>
 
-    <div v-if="amountInWords" class="mr-10 text-sm text-gray-600">
-      {{ amountInWords }}
-    </div>
+<div v-show="amountInWords" class="md:mr-[70px] mr-6 mt-1 w-120 text-[12px] text-gray-600">
+  {{ amountInWords }}
+</div>
+
   </div>
 </template>
